@@ -1,3 +1,4 @@
+const { errorHandler, notFound } = require("./middlewares/error.middleware");
 //DOTENV SETTING
 const dotenv = require("dotenv");
 dotenv.config();
@@ -13,8 +14,9 @@ server.use(cors());
 
 //ROUTES
 const userRoutes = require("./routes/user.route");
-const { errorHandler, notFound } = require("./middlewares/error.middleware");
 server.use("/api/user", userRoutes);
+const chatRoutes = require("./routes/chat.route");
+server.use("/api/chat", chatRoutes);
 
 //ERROR HANDLING MIDDLEWARES
 server.use(notFound);

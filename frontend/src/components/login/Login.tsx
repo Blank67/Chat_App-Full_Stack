@@ -7,12 +7,19 @@ import {
     InputRightElement,
     VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { useToast } from "@chakra-ui/toast";
-import { post } from "../../utils/AxiosFetch";
+import React, { useEffect, useState } from "react";
+import { post, setAxiosToken } from "../../utils/AxiosFetch";
+import useCustomToast from "../../hooks/useCustomToast";
+import { setUserData } from "../../redux/auth-slice/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "../../redux/store";
 
 const Login = () => {
-    const toast = useToast();
+    const showToast = useCustomToast();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const token = useSelector((state: RootState) => state.auth.user.token);
     const [isLoading, setIsLoading] = useState(false);
     const [formDetails, setFormDetails] = useState({
         email: "",
@@ -28,35 +35,30 @@ const Login = () => {
     const formSubmitHandler = async () => {
         setIsLoading(true);
         if (!formDetails.email || !formDetails.password) {
-            toast({
-                title: "Please fill all the details.",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            showToast("Please fill all the details.");
             setIsLoading(false);
             return;
         }
         try {
             const data = await post("/user/login", formDetails);
             if (data.msg === "Success") {
-                console.log("Logged In!");
+                setAxiosToken(data.user.token);
+                localStorage.setItem("userData", JSON.stringify(data.user));
+                dispatch(setUserData(data.user));
+                navigate("/chat");
             } else {
-                toast({
-                    title: data?.response?.data?.msg ?? "Something went wrong.",
-                    status: "warning",
-                    duration: 5000,
-                    isClosable: true,
-                    position: "bottom",
-                });
+                showToast(data?.response?.data?.msg ?? "Something went wrong.");
             }
-            console.log(data);
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
         }
     };
+    useEffect(() => {
+        if (token) {
+            navigate("/chat");
+        }
+    }, [navigate, token]);
     return (
         <VStack spacing="10px">
             <FormControl id="email" isRequired>

@@ -8,8 +8,8 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useToast } from "@chakra-ui/toast";
 import { post } from "../../utils/AxiosFetch";
+import useCustomToast from "../../hooks/useCustomToast";
 
 const SignUp = () => {
     const [formState, setFormState] = useState({
@@ -24,7 +24,7 @@ const SignUp = () => {
         cPassword: false,
     });
     const [isLoading, setIsLoading] = useState(false);
-    const toast = useToast();
+    const showToast = useCustomToast();
     const formChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormState((prevState) => ({
             ...prevState,
@@ -52,43 +52,23 @@ const SignUp = () => {
                         }
                     );
                     const responseJSON = await response.json();
-                    console.log(responseJSON);
                     setFormState((prev) => ({
                         ...prev,
                         image: responseJSON.url.toString() ?? "",
                     }));
                     setIsLoading(false);
                 } catch (error) {
-                    console.log(error);
                     setIsLoading(false);
-                    toast({
-                        title: "Something went wrong. Please try again.",
-                        status: "warning",
-                        duration: 5000,
-                        isClosable: true,
-                        position: "bottom",
-                    });
+                    showToast("Something went wrong. Please try again");
                     return;
                 }
             } else {
-                toast({
-                    title: "Please select an image!",
-                    status: "warning",
-                    duration: 5000,
-                    isClosable: true,
-                    position: "bottom",
-                });
+                showToast("Please select an image");
                 setIsLoading(false);
                 return;
             }
         } else {
-            toast({
-                title: "Something went wrong!",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            showToast("Something went wrong");
             setIsLoading(false);
             return;
         }
@@ -101,45 +81,21 @@ const SignUp = () => {
             !formState.password ||
             !formState.cPassword
         ) {
-            toast({
-                title: "Please fill all the details.",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            showToast("Please fill all the details");
             setIsLoading(false);
             return;
         }
         if (formState.password !== formState.cPassword) {
-            toast({
-                title: "Passwords do not match.",
-                status: "warning",
-                duration: 5000,
-                isClosable: true,
-                position: "bottom",
-            });
+            showToast("Passwords do not match");
             setIsLoading(false);
             return;
         }
         try {
             const data = await post("/user", formState);
             if (data.msg === "Success") {
-                toast({
-                    title: "Registration Successful",
-                    status: "success",
-                    duration: 5000,
-                    isClosable: true,
-                    position: "bottom",
-                });
+                showToast("Registration Successful", "success");
             } else {
-                toast({
-                    title: data?.response?.data?.msg ?? "Something went wrong.",
-                    status: "warning",
-                    duration: 5000,
-                    isClosable: true,
-                    position: "bottom",
-                });
+                showToast(data?.response?.data?.msg ?? "Something went wrong.");
             }
             setIsLoading(false);
         } catch (error) {}

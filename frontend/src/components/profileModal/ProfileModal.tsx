@@ -15,12 +15,12 @@ import {
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
-interface ProfileModalInterface {
+interface ProfileModalProps {
     user: { name: string; email: string; image: string };
     children: ReactNode;
 }
 
-const ProfileModal = (props: ProfileModalInterface) => {
+const ProfileModal = (props: ProfileModalProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <>

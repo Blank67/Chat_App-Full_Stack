@@ -11,7 +11,7 @@ import {
     Text,
     Tooltip,
 } from "@chakra-ui/react";
-import ProfileModal from "../sideDrawer/profileModal/ProfileModal";
+import ProfileModal from "../profileModal/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetUserData } from "../../redux/auth-slice/authSlice";

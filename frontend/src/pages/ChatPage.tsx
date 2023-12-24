@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import SideDrawer from "../components/sideDrawer/SideDrawer";
 import MyChats from "../components/myChats/MyChats";
+import ChatBox from "../components/chatBox/ChatBox";
 
 const ChatPage = () => {
     return (
@@ -14,6 +15,7 @@ const ChatPage = () => {
                 p="10px"
             >
                 <MyChats />
+                <ChatBox />
             </Box>
         </div>
     );

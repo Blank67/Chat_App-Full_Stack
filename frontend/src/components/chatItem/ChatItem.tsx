@@ -1,8 +1,8 @@
-import { Box, Button, Stack, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { setSelectedChat } from "../../../redux/chat-slice/chatSlice";
-import { getSender } from "../../../utils/utilFunctions";
+import { RootState } from "../../redux/store";
+import { setSelectedChat } from "../../redux/chat-slice/chatSlice";
+import { getSender } from "../../utils/utilFunctions";
 
 interface ChatItemProps {
     chatItm: any;

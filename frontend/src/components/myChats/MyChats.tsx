@@ -6,14 +6,15 @@ import useCustomToast from "../../hooks/useCustomToast";
 import { get } from "../../utils/AxiosFetch";
 import { setAllChats } from "../../redux/chat-slice/chatSlice";
 import { useEffect, useRef } from "react";
-import ChatItem from "./chatItem/ChatItem";
+import ChatItem from "../chatItem/ChatItem";
+import GroupChatModal from "../groupChatModal/GroupChatModal";
 
 const MyChats = () => {
     const chat = useSelector((state: RootState) => state.chat);
     const dispatch = useDispatch();
     const showToast = useCustomToast();
 
-    //This is to avoid infinet fetch calls due to showToast in dependency array of useEffect
+    //This is to avoid infinite fetch calls due to showToast in dependency array of useEffect
     const showToastRef = useRef(showToast);
     useEffect(() => {
         showToastRef.current = showToast;
@@ -39,7 +40,7 @@ const MyChats = () => {
     }, [dispatch]);
     return (
         <Box
-            display={{ base: chat.selectedChat ? "none" : "flex", md: "flex" }}
+            display={{ base: chat.selectedChat._id ? "none" : "flex", md: "flex" }}
             flexDir="column"
             alignItems="center"
             p={3}
@@ -59,15 +60,15 @@ const MyChats = () => {
                 alignItems="center"
             >
                 My Chats
-                {/* <GroupChatModal> */}
-                <Button
-                    display="flex"
-                    fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-                    rightIcon={<AddIcon />}
-                >
-                    New Group Chat
-                </Button>
-                {/* </GroupChatModal> */}
+                <GroupChatModal>
+                    <Button
+                        display="flex"
+                        fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+                        rightIcon={<AddIcon />}
+                    >
+                        New Group Chat
+                    </Button>
+                </GroupChatModal>
             </Box>
             <Box
                 display="flex"
@@ -79,16 +80,11 @@ const MyChats = () => {
                 borderRadius="lg"
                 overflowY="hidden"
             >
-                {chat.allChats ? (
-                    <Stack overflowY="scroll">
-                        {chat.allChats.map((chatItm) => (
-                            <ChatItem key={chatItm._id} chatItm={chatItm} />
-                        ))}
-                    </Stack>
-                ) : (
-                    // <ChatLoading />
-                    <div></div>
-                )}
+                <Stack overflowY="scroll">
+                    {chat.allChats.map((chatItm) => (
+                        <ChatItem key={chatItm._id} chatItm={chatItm} />
+                    ))}
+                </Stack>
             </Box>
         </Box>
     );

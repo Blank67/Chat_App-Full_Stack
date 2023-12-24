@@ -21,7 +21,7 @@ const chatSlice = createSlice({
             state.allChats = action.payload;
         },
         addToAllChats: (state, action) => {
-            state.allChats.push(action.payload);
+            state.allChats.unshift(action.payload);
         },
     },
 });

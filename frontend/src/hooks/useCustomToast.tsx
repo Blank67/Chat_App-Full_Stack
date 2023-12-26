@@ -10,9 +10,10 @@ const useCustomToast = () => {
             | "success"
             | "error"
             | "loading"
-            | undefined,
-        duration?: number,
-        isClosable?: boolean,
+            | undefined
+            | null,
+        duration?: number | null | undefined,
+        isClosable?: boolean | null | undefined,
         position?:
             | "top"
             | "top-left"
@@ -20,13 +21,15 @@ const useCustomToast = () => {
             | "bottom"
             | "bottom-left"
             | "bottom-right"
+            | null
+            | undefined
     ) => {
         toast({
             title,
-            status: status || "warning",
-            duration: duration || 3000,
-            isClosable: isClosable || true,
-            position: position || "bottom",
+            status: status ?? "warning",
+            duration: duration ?? 3000,
+            isClosable: isClosable ?? true,
+            position: position ?? "bottom",
         });
     };
     return showToast;

@@ -17,7 +17,7 @@ import { ReactNode } from "react";
 
 interface ProfileModalProps {
     user: { name: string; email: string; image: string };
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 const ProfileModal = (props: ProfileModalProps) => {

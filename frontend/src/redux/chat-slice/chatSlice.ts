@@ -11,7 +11,7 @@ const initialState: ChatState = {
 };
 
 const chatSlice = createSlice({
-    name: "loader",
+    name: "chat",
     initialState,
     reducers: {
         setSelectedChat: (state, action) => {
@@ -23,10 +23,13 @@ const chatSlice = createSlice({
         addToAllChats: (state, action) => {
             state.allChats.unshift(action.payload);
         },
+        resetChatSlice: (state) => {
+            state = initialState;
+        },
     },
 });
 
-export const { setSelectedChat, setAllChats, addToAllChats } =
+export const { setSelectedChat, setAllChats, addToAllChats, resetChatSlice } =
     chatSlice.actions;
 
 export default chatSlice.reducer;

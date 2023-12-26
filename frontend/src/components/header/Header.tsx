@@ -14,8 +14,9 @@ import {
 import ProfileModal from "../profileModal/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { resetUserData } from "../../redux/auth-slice/authSlice";
+import { resetAuthSlice } from "../../redux/auth-slice/authSlice";
 import { RootState } from "../../redux/store";
+import { resetChatSlice } from "../../redux/chat-slice/chatSlice";
 
 interface HeaderProps {
     onOpen: () => void;
@@ -27,7 +28,8 @@ const Header = (props: HeaderProps) => {
     const user = useSelector((state: RootState) => state.auth.user);
     const logoutHandler = () => {
         localStorage.removeItem("userData");
-        dispatch(resetUserData());
+        dispatch(resetAuthSlice());
+        dispatch(resetChatSlice());
         navigate("/");
     };
     return (
@@ -56,28 +58,10 @@ const Header = (props: HeaderProps) => {
                 Talk-A-Tive
             </Text>
             <div>
-                {/* <Menu>
-                        <MenuButton p={1}>
-                            <NotificationBadge
-                                count={notification.length}
-                                effect={Effect.SCALE}
-                            />
-                            <BellIcon fontSize="2xl" m={1} />
-                        </MenuButton>
-                        <MenuList pl={2}>
-                            {!notification.length && "No New Messages"}
-                            {notification.map((notif) => (
-                                <MenuItem key={notif._id}>
-                                    {notif.chat.isGroupChat
-                                        ? `New Message in ${notif.chat.chatName}`
-                                        : `New Message from ${getSender(
-                                              user,
-                                              notif.chat.users
-                                          )}`}
-                                </MenuItem>
-                            ))}
-                        </MenuList>
-                    </Menu> */}
+                <Menu>
+                    {/* TODO: ADD NOTIFICATION HERE */}
+                    <div></div>
+                </Menu>
                 <Menu>
                     <MenuButton
                         as={Button}

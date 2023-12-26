@@ -32,6 +32,14 @@ export const post = async (url: string, payload: any) => {
         return error;
     }
 };
+export const put = async (url: string, payload: any) => {
+    try {
+        const response = await axiosInstance.put(url, payload);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+};
 
 export const AxiosInterceptor = (props: any) => {
     const dispatch = useDispatch();

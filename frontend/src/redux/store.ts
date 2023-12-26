@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth-slice/authSlice";
 import loaderReducer from "./loader-slice/loaderSlice";
 import chatReducer from "./chat-slice/chatSlice";
+import fetchAllChatsAgainReducer from "./fetchAllChatsAgain-slice/fetchAllChatsAgainSlice";
 
 export const store = configureStore({
     reducer: {
         loader: loaderReducer,
         auth: authReducer,
         chat: chatReducer,
+        fetchAllChatsAgain: fetchAllChatsAgainReducer,
     },
 });
 

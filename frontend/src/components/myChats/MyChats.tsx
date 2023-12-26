@@ -11,6 +11,9 @@ import GroupChatModal from "../groupChatModal/GroupChatModal";
 
 const MyChats = () => {
     const chat = useSelector((state: RootState) => state.chat);
+    const fetchAllChatAgain = useSelector(
+        (state: RootState) => state.fetchAllChatsAgain.refresh
+    );
     const dispatch = useDispatch();
     const showToast = useCustomToast();
 
@@ -37,10 +40,13 @@ const MyChats = () => {
         };
 
         fetchAllChats();
-    }, [dispatch]);
+    }, [dispatch, fetchAllChatAgain]);
     return (
         <Box
-            display={{ base: chat.selectedChat._id ? "none" : "flex", md: "flex" }}
+            display={{
+                base: chat.selectedChat._id ? "none" : "flex",
+                md: "flex",
+            }}
             flexDir="column"
             alignItems="center"
             p={3}

@@ -14,7 +14,7 @@ exports.fetchChat = asyncHandler(async (req, res) => {
         path: "latestMessage.sender",
         select: "name email image",
     });
-    res.status(200).json(chats);
+    res.status(200).json({ msg: "Success", chats });
 });
 
 exports.accessChat = asyncHandler(async (req, res) => {
@@ -36,7 +36,7 @@ exports.accessChat = asyncHandler(async (req, res) => {
             select: "name email image",
         });
         if (isChat.length > 0) {
-            res.status(200).json(isChat[0]);
+            res.status(200).json({ msg: "Success", chat: isChat[0] });
         } else {
             const chatData = {
                 chatName: "sender",
@@ -94,7 +94,7 @@ exports.renameGroupChat = asyncHandler(async (req, res) => {
     if (!updatedChat) {
         res.status(404).json({ msg: "Chat not found" });
     } else {
-        res.status(200).json(updatedChat);
+        res.status(200).json({ msg: "Success", chat: updatedChat });
     }
 });
 
@@ -110,7 +110,7 @@ exports.removeFromGroupChat = asyncHandler(async (req, res) => {
     if (!updatedChat) {
         res.status(404).json({ msg: "Chat not found" });
     } else {
-        res.status(200).json(updatedChat);
+        res.status(200).json({ msg: "Success", chat: updatedChat });
     }
 });
 
@@ -128,6 +128,6 @@ exports.addToGroupChat = asyncHandler(async (req, res) => {
     if (!updatedChat) {
         res.status(404).json({ msg: "Chat not found" });
     } else {
-        res.status(200).json(updatedChat);
+        res.status(200).json({ msg: "Success", chat: updatedChat });
     }
 });

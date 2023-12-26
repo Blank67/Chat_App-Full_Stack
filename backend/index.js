@@ -17,6 +17,8 @@ const userRoutes = require("./routes/user.route");
 server.use("/api/user", userRoutes);
 const chatRoutes = require("./routes/chat.route");
 server.use("/api/chat", chatRoutes);
+const messageRoutes = require("./routes/message.route");
+server.use("/api/message", messageRoutes);
 
 //ERROR HANDLING MIDDLEWARES
 server.use(notFound);

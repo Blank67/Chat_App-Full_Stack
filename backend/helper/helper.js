@@ -4,7 +4,7 @@ exports.sanitizeUser = (user) => {
     return {
         msg: "Success",
         user: {
-            _id: user._id,
+            // _id: user._id,
             name: user.name,
             email: user.email,
             isAdmin: user.isAdmin,

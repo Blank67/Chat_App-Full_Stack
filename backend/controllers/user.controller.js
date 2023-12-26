@@ -39,7 +39,7 @@ exports.authenticateUser = asyncHandler(async (req, res) => {
     }
 });
 
-exports.fetchAllUsers = asyncHandler(async (req, res) => {
+exports.fetchUsers = asyncHandler(async (req, res) => {
     const keyword = req.query.search
         ? {
               $or: [

@@ -31,6 +31,10 @@ import { Socket, io } from "socket.io-client";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import Lottie from "lottie-react";
 import typingAnimationData from "../../assets/animations/typing.json";
+import {
+    setNotifications,
+} from "../../redux/notification-slice/notificationSlice";
+import { reloadAllChats } from "../../redux/fetchAllChatsAgain-slice/fetchAllChatsAgainSlice";
 
 interface ScrollableChatProps {
     messages: any[];
@@ -99,6 +103,9 @@ const ChatContent = () => {
     const dispatch = useDispatch();
     const chat = useSelector((state: RootState) => state.chat);
     const auth = useSelector((state: RootState) => state.auth);
+    const notifications = useSelector(
+        (state: RootState) => state.notification.notifications
+    );
     const showToast = useCustomToast();
     //This is to avoid infinite fetch calls due to showToast in dependency array of useEffect
     const showToastRef = useRef(showToast);
@@ -153,8 +160,6 @@ const ChatContent = () => {
     };
     const typingHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewMessage(e.target.value);
-        console.log("kjsnd", socketConnected);
-
         if (!socketConnected) return;
         if (!typing) {
             setTyping(true);
@@ -208,16 +213,24 @@ const ChatContent = () => {
 
         if (chat.selectedChat._id) {
             fetchChats();
-            selectedChatCompare = chat.selectedChat;
         }
+        selectedChatCompare = chat.selectedChat;
     }, [chat.selectedChat, chat.selectedChat._id]);
     useEffect(() => {
         socketIO.on("message_received", (newMessageReceived) => {
             if (
-                !selectedChatCompare._id ||
-                selectedChatCompare._id !== newMessageReceived.chat._id
+                !selectedChatCompare?._id ||
+                selectedChatCompare?._id !== newMessageReceived.chat._id
             ) {
-                //TODO: Give notification
+                const notificationExist = notifications.some(
+                    (itm) => itm._id === newMessageReceived._id
+                );
+                if (!notificationExist) {
+                    const noti: any[] = [newMessageReceived, ...notifications];
+                    // dispatch(addNotification(newMessageReceived));
+                    dispatch(setNotifications(noti));
+                    dispatch(reloadAllChats());
+                }
             } else {
                 setMessages([...messages, newMessageReceived]);
             }

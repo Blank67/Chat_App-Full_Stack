@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import {
     Avatar,
     Box,
@@ -16,7 +16,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetAuthSlice } from "../../redux/auth-slice/authSlice";
 import { RootState } from "../../redux/store";
-import { resetChatSlice } from "../../redux/chat-slice/chatSlice";
+import {
+    resetChatSlice,
+    setSelectedChat,
+} from "../../redux/chat-slice/chatSlice";
+import { getSender } from "../../utils/utilFunctions";
+import { resetNotificationSlice, setNotifications } from "../../redux/notification-slice/notificationSlice";
+
 
 interface HeaderProps {
     onOpen: () => void;
@@ -26,10 +32,14 @@ const Header = (props: HeaderProps) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.auth.user);
+    const notifications = useSelector(
+        (state: RootState) => state.notification.notifications
+    );
     const logoutHandler = () => {
         localStorage.removeItem("userData");
         dispatch(resetAuthSlice());
         dispatch(resetChatSlice());
+        dispatch(resetNotificationSlice());
         navigate("/");
     };
     return (
@@ -59,8 +69,35 @@ const Header = (props: HeaderProps) => {
             </Text>
             <div>
                 <Menu>
-                    {/* TODO: ADD NOTIFICATION HERE */}
-                    <div></div>
+                    <MenuButton p={1}>
+                        {/* TODO: ADD NOTIFICATION COUNT */}
+                        <BellIcon fontSize="2xl" m={1} />
+                    </MenuButton>
+                    <MenuList pl={2}>
+                        {!notifications.length && "No New Messages"}
+                        {notifications.map((noti) => (
+                            <MenuItem
+                                key={noti._id}
+                                onClick={() => {
+                                    dispatch(setSelectedChat(noti.chat));
+                                    dispatch(
+                                        setNotifications(
+                                            notifications.filter(
+                                                (n) => n._id !== noti._id
+                                            )
+                                        )
+                                    );
+                                }}
+                            >
+                                {noti.chat.isGroupChat
+                                    ? `New Message in ${noti.chat.chatName}`
+                                    : `New Message from ${getSender(
+                                          user,
+                                          noti.chat.users
+                                      )}`}
+                            </MenuItem>
+                        ))}
+                    </MenuList>
                 </Menu>
                 <Menu>
                     <MenuButton

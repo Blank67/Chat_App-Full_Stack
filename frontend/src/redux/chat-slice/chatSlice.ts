@@ -24,7 +24,8 @@ const chatSlice = createSlice({
             state.allChats.unshift(action.payload);
         },
         resetChatSlice: (state) => {
-            state = initialState;
+            state.selectedChat = initialState.selectedChat;
+            state.allChats = initialState.allChats;
         },
     },
 });

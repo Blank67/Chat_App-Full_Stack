@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import SideDrawer from "../components/sideDrawer/SideDrawer";
 import MyChats from "../components/myChats/MyChats";
-import ChatBox from "../components/chatbox/Chatbox";
+import ChatBox from "../components/chatBox/ChatBox";
 
 const ChatPage = () => {
     return (

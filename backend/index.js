@@ -10,7 +10,7 @@ server.use(express.json());
 //CORS SETTING
 const cors = require("cors");
 const { connectDB } = require("./config/db");
-server.use(cors());
+server.use(cors({ origin: process.env.CLIENT_ORIGIN }));
 
 //ROUTES
 const userRoutes = require("./routes/user.route");

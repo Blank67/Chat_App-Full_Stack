@@ -11,6 +11,7 @@ const axiosInstance = axios.create({
             JSON.parse(localStorage.getItem("userData") ?? "{}")?.token ?? ""
         }`,
     },
+    withCredentials: true,
 });
 export const setAxiosToken = (token: string) => {
     axiosInstance.defaults.headers["Authorization"] = `Bearer ${token}`;

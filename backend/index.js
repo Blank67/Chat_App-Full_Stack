@@ -31,15 +31,11 @@ server.use(errorHandler);
 //SOCKET IO
 const socketIO = require("socket.io");
 
-server.get("/", (req, res) => {
-    res.status(200).json({ message: "ready" });
-});
-
-const activeServer = server.listen(process.env.PORT || 9090, () => {
-    console.log("SERVER STARTED!");
-});
-
 connectDB().then(() => {
+    const activeServer = server.listen(process.env.PORT || 9090, () => {
+        console.log("SERVER STARTED!");
+    });
+    
     //CONNECTING SOCKET IO
     const socketSetting = {
         pingTimeout: 60000,

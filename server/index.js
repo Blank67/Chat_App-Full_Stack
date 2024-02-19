@@ -12,6 +12,7 @@ const cors = require("cors");
 const { connectDB } = require("./config/db");
 const corsOptions = {
     origin: process.env.CLIENT_ORIGIN,
+    methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
     credentials: true,
 };
 server.use(cors(corsOptions));
@@ -35,7 +36,7 @@ connectDB().then(() => {
     const activeServer = server.listen(process.env.PORT || 9090, () => {
         console.log("SERVER STARTED!");
     });
-    
+
     //CONNECTING SOCKET IO
     const socketSetting = {
         pingTimeout: 60000,

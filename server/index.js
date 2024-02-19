@@ -32,6 +32,11 @@ server.use(errorHandler);
 //SOCKET IO
 const socketIO = require("socket.io");
 
+//TEST ROUTE
+server.get("/", (req, res) => {
+    res.json("Hello");
+});
+
 connectDB().then(() => {
     const activeServer = server.listen(process.env.PORT || 9090, () => {
         console.log("SERVER STARTED!");

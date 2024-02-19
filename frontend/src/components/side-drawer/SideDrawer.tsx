@@ -13,13 +13,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import useCustomToast from "../../hooks/useCustomToast";
 import { get, post } from "../../utils/AxiosFetch";
-import UserItem from "../userItem/UserItem";
 import Header from "../header/Header";
 import {
     addToAllChats,
     setSelectedChat,
 } from "../../redux/chat-slice/chatSlice";
 import { RootState } from "../../redux/store";
+import UserItem from "../user-item/UserItem";
 
 const SideDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();

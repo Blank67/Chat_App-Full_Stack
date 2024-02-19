@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/layout";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import ChatContent from "../chatContent/ChatContent";
+import ChatContent from "../chat-content/ChatContent";
 
 const ChatBox = () => {
     const chat = useSelector((state: RootState) => state.chat);

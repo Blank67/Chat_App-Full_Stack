@@ -19,9 +19,7 @@ import {
     isSameSenderMargin,
     isSameUser,
 } from "../../utils/utilFunctions";
-import ProfileModal from "../profileModal/ProfileModal";
 import { IconButton } from "@chakra-ui/react";
-import UpdateGroupChatModal from "../updateGroupChatModal/UpdateGroupChatModal";
 import { useEffect, useRef, useState } from "react";
 import { get, post } from "../../utils/AxiosFetch";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -35,6 +33,8 @@ import {
     setNotifications,
 } from "../../redux/notification-slice/notificationSlice";
 import { reloadAllChats } from "../../redux/fetchAllChatsAgain-slice/fetchAllChatsAgainSlice";
+import ProfileModal from "../profile-modal/ProfileModal";
+import UpdateGroupChatModal from "../update-group-chat-modal/UpdateGroupChatModal";
 
 interface ScrollableChatProps {
     messages: any[];

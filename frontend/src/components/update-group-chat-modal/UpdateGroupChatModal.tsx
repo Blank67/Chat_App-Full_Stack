@@ -14,8 +14,7 @@ import {
     ModalOverlay,
     useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
-import UserBadgeItem from "../userBadgeItem/UserBadgeItem";
+import { useEffect, useRef, useState } from "react";
 import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -23,8 +22,9 @@ import { UserInterface } from "../../utils/Interface";
 import { get, put } from "../../utils/AxiosFetch";
 import { setSelectedChat } from "../../redux/chat-slice/chatSlice";
 import { reloadAllChats } from "../../redux/fetchAllChatsAgain-slice/fetchAllChatsAgainSlice";
-import UserItem from "../userItem/UserItem";
 import { decryptId } from "../../utils/utilFunctions";
+import UserBadgeItem from "../user-badge-item/UserBadgeItem";
+import UserItem from "../user-item/UserItem";
 
 const UpdateGroupChatModal = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();

@@ -11,7 +11,6 @@ import {
     Text,
     Tooltip,
 } from "@chakra-ui/react";
-import ProfileModal from "../profileModal/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetAuthSlice } from "../../redux/auth-slice/authSlice";
@@ -22,6 +21,7 @@ import {
 } from "../../redux/chat-slice/chatSlice";
 import { getSender } from "../../utils/utilFunctions";
 import { resetNotificationSlice, setNotifications } from "../../redux/notification-slice/notificationSlice";
+import ProfileModal from "../profile-modal/ProfileModal";
 
 
 interface HeaderProps {

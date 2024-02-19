@@ -15,11 +15,11 @@ import {
 import { ReactNode, useEffect, useRef, useState } from "react";
 import useCustomToast from "../../hooks/useCustomToast";
 import { useDispatch } from "react-redux";
-import UserItem from "../userItem/UserItem";
 import { get, post } from "../../utils/AxiosFetch";
-import UserBadgeItem from "../userBadgeItem/UserBadgeItem";
 import { UserInterface } from "../../utils/Interface";
 import { addToAllChats } from "../../redux/chat-slice/chatSlice";
+import UserBadgeItem from "../user-badge-item/UserBadgeItem";
+import UserItem from "../user-item/UserItem";
 
 interface GroupChatModalProps {
     children: ReactNode;

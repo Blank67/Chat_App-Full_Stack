@@ -6,8 +6,8 @@ import useCustomToast from "../../hooks/useCustomToast";
 import { get } from "../../utils/AxiosFetch";
 import { setAllChats } from "../../redux/chat-slice/chatSlice";
 import { useEffect, useRef } from "react";
-import ChatItem from "../chatItem/ChatItem";
-import GroupChatModal from "../groupChatModal/GroupChatModal";
+import GroupChatModal from "../group-chat-modal/GroupChatModal";
+import ChatItem from "../chat-item/ChatItem";
 
 const MyChats = () => {
     const chat = useSelector((state: RootState) => state.chat);

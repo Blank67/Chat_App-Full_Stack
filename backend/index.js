@@ -11,7 +11,7 @@ server.use(express.json());
 const cors = require("cors");
 const { connectDB } = require("./config/db");
 const corsOptions = {
-    origin: "https://chat-app-client-liart-phi.vercel.app/",
+    origin: "https://chat-app-client-liart-phi.vercel.app",
     credentials: true,
 };
 server.use(cors(corsOptions));
@@ -44,7 +44,7 @@ connectDB().then(() => {
     const socketSetting = {
         pingTimeout: 60000,
         cors: {
-            origin: process.env.CLIENT_ORIGIN,
+            origin: "https://chat-app-client-liart-phi.vercel.app",
         },
     };
     const socket = socketIO(activeServer, socketSetting);

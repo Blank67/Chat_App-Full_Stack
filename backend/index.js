@@ -11,7 +11,7 @@ server.use(express.json());
 const cors = require("cors");
 const { connectDB } = require("./config/db");
 const corsOptions = {
-    origin: '*',
+    origin: "https://chat-app-client-liart-phi.vercel.app/",
     credentials: true,
 };
 server.use(cors(corsOptions));
@@ -31,17 +31,15 @@ server.use(errorHandler);
 //SOCKET IO
 const socketIO = require("socket.io");
 
-server.get('/', (req, res) => {
-    res.status(200).json({message: 'ready'})
-})
+server.get("/", (req, res) => {
+    res.status(200).json({ message: "ready" });
+});
 
 const activeServer = server.listen(process.env.PORT || 9090, () => {
     console.log("SERVER STARTED!");
 });
 
-
 connectDB().then(() => {
-
     //CONNECTING SOCKET IO
     const socketSetting = {
         pingTimeout: 60000,

@@ -12,8 +12,8 @@ const cors = require("cors");
 const { connectDB } = require("./config/db");
 const corsOptions = {
     origin: process.env.CLIENT_ORIGIN,
-    methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
-    credentials: true,
+    // methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
+    // credentials: true,
 };
 server.use(cors(corsOptions));
 

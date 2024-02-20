@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { toggleLoader } from "../redux/loader-slice/loaderSlice";
 
 const axiosInstance = axios.create({
-    baseURL: "https://chat-app-server-eight-omega.vercel.app/api",
+    baseURL: "/api",
     headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${

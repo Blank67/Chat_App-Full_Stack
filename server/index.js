@@ -89,4 +89,4 @@ connectDB().then(() => {
 });
 
 // Export the Express API (FOR DEPLOYMENT)
-module.exports = app;
+module.exports = server;

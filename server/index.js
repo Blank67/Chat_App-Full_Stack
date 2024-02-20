@@ -25,17 +25,28 @@ server.use("/api/chat", chatRoutes);
 const messageRoutes = require("./routes/message.route");
 server.use("/api/message", messageRoutes);
 
+// --------------------------DEPLOYMENT CODE START------------------------------
+const path = require("path");
+const __dirname1 = path.resolve();
+if (process.env.ENV === "production") {
+    console.log(__dirname1);
+    server.use(express.static(path.join(__dirname1, "/client/build")));
+    server.get("*", (req, res) =>
+        res.sendFile(path.resolve(__dirname1, "client", "build", "index.html"))
+    );
+} else {
+    server.get("/", (req, res) => {
+        res.send("API is running..");
+    });
+}
+// --------------------------DEPLOYMENT CODE END------------------------------
+
 //ERROR HANDLING MIDDLEWARES
 server.use(notFound);
 server.use(errorHandler);
 
 //SOCKET IO
 const socketIO = require("socket.io");
-
-//TEST ROUTE
-server.get("/", (req, res) => {
-    res.json("Hello");
-});
 
 connectDB().then(() => {
     const activeServer = server.listen(process.env.PORT || 9090, () => {
@@ -87,6 +98,3 @@ connectDB().then(() => {
         });
     });
 });
-
-// Export the Express API (FOR DEPLOYMENT)
-module.exports = server;

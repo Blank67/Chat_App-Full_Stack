@@ -8,7 +8,7 @@ import ChatPage from "./pages/ChatPage";
 import Loader from "./components/loader/Loader";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 
 const router = createBrowserRouter([
     {
